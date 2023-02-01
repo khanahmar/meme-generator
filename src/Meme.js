@@ -11,11 +11,14 @@ export default function Meme() {
   })
 
   React.useEffect(() => {
-    fetch("https://api.imgflip.com/get_memes")
-      .then((response) => response.json())
-      .then((data) => setAllMemeImages(data.data.memes))
+    async function getData() {
+      const res = await fetch("https://api.imgflip.com/get_memes")
+      const data = await res.json()
+      setAllMemeImages(data.data.memes)
+    }
+    getData()
   }, [])
-
+  console.log(allMemeImages)
   function handleInp(e) {
     e.preventDefault()
     setMeme((prevInp) => {
@@ -25,7 +28,7 @@ export default function Meme() {
       }
     })
   }
-
+  console.log(allMemeImages)
   function getMemeImage(e) {
     e.preventDefault()
     let url =
